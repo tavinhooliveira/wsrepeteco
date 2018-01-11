@@ -2,8 +2,6 @@ package com.megas.wsrepeteco.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -16,7 +14,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class Friends {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@JsonInclude(Include.NON_NULL)
@@ -49,7 +46,7 @@ public class Friends {
 	private Users users;
 	
 	private Long user_id;
-	
+		
 	
 
 	/**
@@ -199,8 +196,7 @@ public class Friends {
 	public void setOption(String option) {
 		this.option = option;
 	}
-	
-	
+
 	
 	
 }

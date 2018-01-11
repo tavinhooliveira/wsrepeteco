@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.megas.wsrepeteco.domain.Friends;
 import com.megas.wsrepeteco.repository.FriendsRepository;
 import com.megas.wsrepeteco.services.exceptions.OptionNaoEncontradoException;
-import com.megas.wsrepeteco.services.exceptions.UsersExistenteException;
 import com.megas.wsrepeteco.services.exceptions.UsersNaoEncontradoException;
 
 @Service
@@ -23,15 +22,17 @@ public class FriendsService {
 			return friendsRepository.findAll();
 		}
 		
-		//Salvar User
+		//Salvar Friends
 		public Friends salvar(Friends friends) {
 			if(friends.getId() != null) {
 				Friends a = friendsRepository.findOne(friends.getId());
 				
 				if(a != null) {
-					throw new UsersExistenteException("O Friend já existe.");
+					System.out.println("|Update| Friends Atualizado:"+friends.getId());
+					friends.setOption(a.getOption());
 				}
 			}
+			System.out.println("|Create| Friends cadastrado:"+friends.getId());
 			return friendsRepository.save(friends);
 		}
 		

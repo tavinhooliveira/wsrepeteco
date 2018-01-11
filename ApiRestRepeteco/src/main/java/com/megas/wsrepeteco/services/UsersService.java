@@ -29,7 +29,7 @@ public class UsersService {
 		return usersRepository.findAll();
 	}	
 		
-	// Salvar User
+	//Salvar User
 	public Users salvar(Users users) {
 		if(users.getId() != null) {
 			Users a = usersRepository.findOne(users.getId());			
@@ -37,10 +37,11 @@ public class UsersService {
 				System.out.println("|Update| Usuario Atualizado:"+users.getId());
 				users.setUpdateData(new Date());
 				users.setCreateData(a.getCreateData());
+				users.setPreference(a.getPreference());
 				return usersRepository.save(users);
 			}
 		}
-		System.out.println("|Create|Usuario Cadastrado:"+users.getId());
+		System.out.println("|Create| Usuario Cadastrado:"+users.getId());
 		users.setCreateData(new Date());
 		users.setUpdateData(new Date());
 		return usersRepository.save(users);
