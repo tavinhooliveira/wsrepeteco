@@ -12,7 +12,6 @@ import com.megas.wsrepeteco.domain.Users;
 import com.megas.wsrepeteco.repository.FriendsRepository;
 import com.megas.wsrepeteco.repository.UsersRepository;
 import com.megas.wsrepeteco.services.exceptions.OptionNaoEncontradoException;
-import com.megas.wsrepeteco.services.exceptions.UsersNaoEncontradoException;
 
 @Service
 public class UsersService {
@@ -52,7 +51,8 @@ public class UsersService {
 		Users users = usersRepository.findOne(id);
 		
 		if(users == null) {
-			throw new UsersNaoEncontradoException("O usuario não pôde ser encontrado.");
+			System.out.println("O usuario não existe.");
+			//throw new UsersNaoEncontradoException("O usuario não pôde ser encontrado.");
 		}
 		return users;
 	}

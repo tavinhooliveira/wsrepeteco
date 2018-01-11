@@ -45,14 +45,12 @@ public class FriendsService {
 			}
 			return friends;
 		}
-		
-		
+				
 		//Verificar se Existe
 		private void verificarExistencia(Friends friends) {
 			buscar(friends.getId());
 		}
-		
-		
+				
 		//Atuaizar
 		public void atualizar(Friends friends) {
 			verificarExistencia(friends);
