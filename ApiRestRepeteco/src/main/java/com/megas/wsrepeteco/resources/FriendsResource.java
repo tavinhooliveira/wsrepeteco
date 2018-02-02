@@ -71,6 +71,15 @@ public class FriendsResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@CrossOrigin
+	@RequestMapping(value = "opcao/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> opcao(@RequestBody Friends friends, @PathVariable("id") Long id) {
+		friends.setId(id);
+		friendsService.opcao(friends);
+		
+		return ResponseEntity.noContent().build();
+	}
+	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
 		friendsService.deletar(id);

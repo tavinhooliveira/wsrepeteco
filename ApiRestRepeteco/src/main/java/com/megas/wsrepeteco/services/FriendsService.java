@@ -30,6 +30,7 @@ public class FriendsService {
 				if(a != null) {
 					System.out.println("|Update| Friends Atualizado:"+friends.getId());
 					friends.setOption(a.getOption());
+					return friendsRepository.save(friends);
 				}
 			}
 			System.out.println("|Create| Friends cadastrado:"+friends.getId());
@@ -54,6 +55,26 @@ public class FriendsService {
 		//Atuaizar
 		public void atualizar(Friends friends) {
 			verificarExistencia(friends);
+			friendsRepository.save(friends);
+		}
+		
+		//Classification Opcão
+		public void opcao(Friends friends) {			
+			verificarExistencia(friends);
+			Friends a = friendsRepository.findOne(friends.getId());
+			if(a != null) {
+				System.out.println("|Update|Classification|UserId: "+a.getUser_id()+" Friends_ID: "+friends.getId()+" Opção: "+friends.getOption());
+				friends.setCity(a.getCity());
+				friends.setEmail(a.getEmail());
+				friends.setGender(a.getGender());
+				friends.setId_fb_friends(a.getId_fb_friends());
+				friends.setImagem(a.getImagem());
+				friends.setLink(a.getLink());
+				friends.setName(a.getName());
+				friends.setUser_id(a.getUser_id());
+				friends.setUsers(a.getUsers());
+				friendsRepository.save(friends);
+			}
 			friendsRepository.save(friends);
 		}
 		

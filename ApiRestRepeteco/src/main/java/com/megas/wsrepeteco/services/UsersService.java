@@ -70,7 +70,15 @@ public class UsersService {
 	
 	//Salvar Amigos
 	public Friends salvarFriends(Long usersId, Friends friends) {
+		Friends a = friendsRepository.findOne(friends.getId());
 		Users users = buscar(usersId);
+		if(a != null) {
+			System.out.println("|Update| Friends Atualizado:"+friends.getId());
+			friends.setOption(a.getOption());
+			friends.setUsers(users);
+			friends.setUser_id(usersId);
+			return friendsRepository.save(friends);
+		}
 		friends.setUsers(users);
 		friends.setUser_id(usersId);
 		return friendsRepository.save(friends);
