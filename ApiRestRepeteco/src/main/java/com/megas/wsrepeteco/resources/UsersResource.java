@@ -33,6 +33,13 @@ public class UsersResource {
 		List<Users> users = usersService.listar();
 		return ResponseEntity.status(HttpStatus.OK).body(users);
 	}
+
+	@CrossOrigin
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Users> buscar(@PathVariable("id") Long id) {
+		Users users = usersService.buscar(id);
+		return ResponseEntity.status(HttpStatus.OK).body(users);
+	}
 	
 	@CrossOrigin
 	@RequestMapping(method = RequestMethod.POST)
@@ -56,12 +63,6 @@ public class UsersResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@CrossOrigin
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Users> buscar(@PathVariable("id") Long id) {
-		Users users = usersService.buscar(id);
-		return ResponseEntity.status(HttpStatus.OK).body(users);
-	}
 	
 	@CrossOrigin
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
@@ -78,26 +79,20 @@ public class UsersResource {
 		
 		friends.forEach(f -> {
 			usersService.salvarFriends(usersId, f);
-		});
-		
-		
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
-		
+		});		
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();		
 		return ResponseEntity.created(uri).build();
 	}
 	
 	@CrossOrigin
 	@RequestMapping(value = "/{id}/friends", method = RequestMethod.PUT)
 	public ResponseEntity<Void> atualizarFriends(@PathVariable("id") Long usersId, 
-			@RequestBody List<Friends> friends) {
-		
+			@RequestBody List<Friends> friends) {		
 		friends.forEach(f -> {
 			usersService.salvarFriends(usersId, f);
-		});
-		
+		});		
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
-		
 		return ResponseEntity.created(uri).build();
 	}
 	
