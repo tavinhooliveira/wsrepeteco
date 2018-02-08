@@ -32,7 +32,6 @@ public class Users {
 	
 	private String gender;
 	
-	@JsonInclude(Include.NON_NULL)
 	private String preference;
 	
 	private String nationality;

@@ -1,11 +1,14 @@
 package com.megas.wsrepeteco.domain;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -38,6 +41,10 @@ public class Friends {
 	private String gender;
 		
 	private String option;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+	@JsonInclude(Include.NON_NULL)
+	private Date updateDataOption;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "USERS_ID")
@@ -195,6 +202,20 @@ public class Friends {
 	 */
 	public void setOption(String option) {
 		this.option = option;
+	}
+
+	/**
+	 * @return the updateDataOption
+	 */
+	public Date getUpdateDataOption() {
+		return updateDataOption;
+	}
+
+	/**
+	 * @param updateDataOption the updateDataOption to set
+	 */
+	public void setUpdateDataOption(Date updateDataOption) {
+		this.updateDataOption = updateDataOption;
 	}
 
 	

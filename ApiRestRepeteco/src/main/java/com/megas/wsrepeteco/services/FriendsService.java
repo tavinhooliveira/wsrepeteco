@@ -1,5 +1,6 @@
 package com.megas.wsrepeteco.services;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +74,7 @@ public class FriendsService {
 				friends.setName(a.getName());
 				friends.setUser_id(a.getUser_id());
 				friends.setUsers(a.getUsers());
+				friends.setUpdateDataOption(new Date());
 				friendsRepository.save(friends);
 			}
 			friendsRepository.save(friends);

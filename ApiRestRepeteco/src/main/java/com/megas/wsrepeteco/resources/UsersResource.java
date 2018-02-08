@@ -114,4 +114,22 @@ public class UsersResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+	
+	@CrossOrigin
+	@RequestMapping(value = "/{id}/preference", method = RequestMethod.PUT)
+	public ResponseEntity<Void> preference(@RequestBody Users users, @PathVariable("id") Long id) {
+		users.setId(id);
+		usersService.preference(users);
+		
+		return ResponseEntity.noContent().build();
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value = "/{id}/preference", method = RequestMethod.GET)
+	public ResponseEntity<Users> buscarPreference(@PathVariable("id") Long id) {
+		Users users = usersService.buscar(id);
+		return ResponseEntity.status(HttpStatus.OK).body(users);
+	}
+	
+	
 }
