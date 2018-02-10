@@ -15,7 +15,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class Users {
 	
 	@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private String id_fb_users;	
@@ -40,6 +39,15 @@ public class Users {
 	
 	private Integer friendsTotalApp;
 	
+	private boolean flagDisplayCount;
+	
+	private boolean flagDisplayHot;
+	
+	private boolean flagNotificationMatch;
+	
+	private boolean flagNotificationFriends;
+	
+		
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	@JsonInclude(Include.NON_NULL)
 	private Date createData;
@@ -51,8 +59,7 @@ public class Users {
 	@JsonInclude(Include.NON_EMPTY)
 	@OneToMany(mappedBy = "users")
 	private List<Friends> friends;
-	
-	
+		
 	public Users() {}
 	
 	/**
@@ -288,10 +295,37 @@ public class Users {
 		this.updateData = updateData;
 	}
 
-	
+	public boolean isFlagDisplayCount() {
+		return flagDisplayCount;
+	}
 
+	public void setFlagDisplayCount(boolean flagDisplayCount) {
+		this.flagDisplayCount = flagDisplayCount;
+	}
 
+	public boolean isFlagDisplayHot() {
+		return flagDisplayHot;
+	}
 
-	
+	public void setFlagDisplayHot(boolean flagDisplayHot) {
+		this.flagDisplayHot = flagDisplayHot;
+	}
+
+	public boolean isFlagNotificationMatch() {
+		return flagNotificationMatch;
+	}
+
+	public void setFlagNotificationMatch(boolean flagNotificationMatch) {
+		this.flagNotificationMatch = flagNotificationMatch;
+	}
+
+	public boolean isFlagNotificationFriends() {
+		return flagNotificationFriends;
+	}
+
+	public void setFlagNotificationFriends(boolean flagNotificationFriends) {
+		this.flagNotificationFriends = flagNotificationFriends;
+	}
+
 
 }

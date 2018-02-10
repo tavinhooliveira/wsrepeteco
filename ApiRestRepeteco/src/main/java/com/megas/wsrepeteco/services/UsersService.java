@@ -37,12 +37,20 @@ public class UsersService {
 				users.setUpdateData(new Date());
 				users.setCreateData(a.getCreateData());
 				users.setPreference(a.getPreference());
+				users.setFlagDisplayCount(a.isFlagDisplayCount());
+				users.setFlagDisplayHot(a.isFlagDisplayHot());
+				users.setFlagNotificationFriends(a.isFlagNotificationFriends());
+				users.setFlagNotificationMatch(a.isFlagNotificationMatch());
 				return usersRepository.save(users);
 			}
 		}
 		System.out.println("|Create| Usuario Cadastrado:"+users.getId());
 		users.setCreateData(new Date());
 		users.setUpdateData(new Date());
+		users.setFlagDisplayCount(true);
+		users.setFlagDisplayHot(true);
+		users.setFlagNotificationFriends(true);
+		users.setFlagNotificationMatch(true);
 		return usersRepository.save(users);
 	}
 	
@@ -53,6 +61,7 @@ public class UsersService {
 		if(users == null) {
 			System.out.println("O usuario não existe.");
 			//throw new UsersNaoEncontradoException("O usuario não pôde ser encontrado.");
+			return users;
 		}
 		return users;
 	}
@@ -114,7 +123,11 @@ public class UsersService {
 			users.setGender(a.getGender());
 			users.setNationality(a.getNationality());
 			users.setFriendsTotalFb(a.getFriendsTotalFb());
-			users.setFriendsTotalApp(a.getFriendsTotalApp());			
+			users.setFriendsTotalApp(a.getFriendsTotalApp());
+			users.setFlagDisplayCount(a.isFlagDisplayCount());
+			users.setFlagDisplayHot(a.isFlagDisplayHot());
+			users.setFlagNotificationFriends(a.isFlagNotificationFriends());
+			users.setFlagNotificationMatch(a.isFlagNotificationMatch());
 			usersRepository.save(users);
 		}
 		usersRepository.save(users);
