@@ -124,10 +124,6 @@ public class UsersService {
 			users.setNationality(a.getNationality());
 			users.setFriendsTotalFb(a.getFriendsTotalFb());
 			users.setFriendsTotalApp(a.getFriendsTotalApp());
-			users.setFlagDisplayCount(a.isFlagDisplayCount());
-			users.setFlagDisplayHot(a.isFlagDisplayHot());
-			users.setFlagNotificationFriends(a.isFlagNotificationFriends());
-			users.setFlagNotificationMatch(a.isFlagNotificationMatch());
 			usersRepository.save(users);
 		}
 		usersRepository.save(users);
