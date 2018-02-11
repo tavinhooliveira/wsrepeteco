@@ -55,29 +55,24 @@ public class UsersResource {
 	@CrossOrigin
 	@RequestMapping(method = RequestMethod.PUT)
 	public ResponseEntity<Void> atualizarSalvar(@Valid @RequestBody Users users) {
-		users = usersService.salvar(users);
-		
+		users = usersService.salvar(users);		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(users.getId()).toUri();
-		
+				.path("/{id}").buildAndExpand(users.getId()).toUri();		
 		return ResponseEntity.created(uri).build();
 	}
 	
 	
 	@CrossOrigin
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> atualizar(@RequestBody Users users, 
-			@PathVariable("id") Long id) {
+	public ResponseEntity<Void> atualizar(@RequestBody Users users, @PathVariable("id") Long id) {
 		users.setId(id);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@CrossOrigin
 	@RequestMapping(value = "/{id}/friends", method = RequestMethod.POST)
-	public ResponseEntity<Void> adicionarFriends(@PathVariable("id") Long usersId, 
-			@RequestBody List<Friends> friends) {
-		
-		friends.forEach(f -> {
+	public ResponseEntity<Void> adicionarFriends(@PathVariable("id") Long usersId, @RequestBody List<Friends> friends) {		
+			friends.forEach(f -> {
 			usersService.salvarFriends(usersId, f);
 		});		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();		

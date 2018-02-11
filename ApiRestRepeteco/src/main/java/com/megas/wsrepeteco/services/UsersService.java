@@ -23,8 +23,7 @@ public class UsersService {
 	private FriendsRepository friendsRepository;
 	
 	//Listar Todos
-	public List<Users> listar() {
-		
+	public List<Users> listar() {		
 		return usersRepository.findAll();
 	}	
 		
@@ -56,13 +55,13 @@ public class UsersService {
 	
 	//Buscar User
 	public Users buscar(Long id) {
-		Users users = usersRepository.findOne(id);
-		
+		Users users = usersRepository.findOne(id);		
 		if(users == null) {
 			System.out.println("O usuario não existe.");
-			//throw new UsersNaoEncontradoException("O usuario não pôde ser encontrado.");
+			//TODO verificar se esse return causa bug
 			return users;
 		}
+		System.out.println("Usuario Ja existe.");
 		return users;
 	}
 		
@@ -88,6 +87,7 @@ public class UsersService {
 			friends.setUser_id(usersId);
 			return friendsRepository.save(friends);
 		}
+		System.out.println("|Create| Friends Cadastrados:"+friends.getId());
 		friends.setUsers(users);
 		friends.setUser_id(usersId);
 		return friendsRepository.save(friends);
@@ -113,7 +113,7 @@ public class UsersService {
 		verificarExistencia(users);
 		Users a = usersRepository.findOne(users.getId());
 		if(a != null) {
-			System.out.println("|Update| Usuario Atualizado: Set preference gender |UserId: "+a.getId_fb_users()+" preference: "+users.getPreference());
+			System.out.println("|Update| Preferencias do Usuario Atualizadas |UserId: "+a.getId_fb_users());
 			users.setId_fb_users(a.getId_fb_users());
 			users.setName(a.getName());
 			users.setImagem(a.getImagem());
