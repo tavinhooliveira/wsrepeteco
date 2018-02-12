@@ -47,7 +47,7 @@ public class UsersService {
 		users.setCreateData(new Date());
 		users.setUpdateData(new Date());
 		users.setFlagDisplayCount(true);
-		users.setFlagDisplayHot(true);
+		users.setFlagDisplayHot(false);
 		users.setFlagNotificationFriends(true);
 		users.setFlagNotificationMatch(true);
 		return usersRepository.save(users);
@@ -57,11 +57,11 @@ public class UsersService {
 	public Users buscar(Long id) {
 		Users users = usersRepository.findOne(id);		
 		if(users == null) {
-			System.out.println("O usuario não existe.");
+			System.out.println("O Usuario não existe.");
 			//TODO verificar se esse return causa bug
 			return users;
 		}
-		System.out.println("Usuario Ja existe.");
+		System.out.println("Usuario Encontrado."+users.getId());
 		return users;
 	}
 		
