@@ -77,6 +77,7 @@ public class FriendsService {
 				friends.setUpdateDataOption(new Date());
 				friendsRepository.save(friends);
 			}
+			friends.setUpdateDataOption(new Date());
 			friendsRepository.save(friends);
 		}
 		

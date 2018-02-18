@@ -6,4 +6,5 @@ import com.megas.wsrepeteco.domain.Users;
 
 public interface UsersRepository extends JpaRepository<Users, Long> {
 	
+	
 }

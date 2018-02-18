@@ -32,7 +32,6 @@ public class UsersService {
 		if(users.getId() != null) {
 			Users a = usersRepository.findOne(users.getId());			
 			if(a != null) {
-				System.out.println("|Update| Usuario Atualizado:"+users.getId());
 				users.setUpdateData(new Date());
 				users.setCreateData(a.getCreateData());
 				users.setPreference(a.getPreference());
@@ -40,16 +39,17 @@ public class UsersService {
 				users.setFlagDisplayHot(a.isFlagDisplayHot());
 				users.setFlagNotificationFriends(a.isFlagNotificationFriends());
 				users.setFlagNotificationMatch(a.isFlagNotificationMatch());
+				System.out.println("|Update| Usuario Atualizado:"+users.getId());
 				return usersRepository.save(users);
 			}
 		}
-		System.out.println("|Create| Usuario Cadastrado:"+users.getId());
 		users.setCreateData(new Date());
 		users.setUpdateData(new Date());
 		users.setFlagDisplayCount(true);
 		users.setFlagDisplayHot(false);
 		users.setFlagNotificationFriends(true);
 		users.setFlagNotificationMatch(true);
+		System.out.println("|Create| Usuario Cadastrado:"+users.getId());
 		return usersRepository.save(users);
 	}
 	
@@ -61,7 +61,6 @@ public class UsersService {
 			//TODO verificar se esse return causa bug
 			return users;
 		}
-		System.out.println("Usuario Encontrado."+users.getId());
 		return users;
 	}
 		
@@ -81,15 +80,15 @@ public class UsersService {
 		Friends a = friendsRepository.findOne(friends.getId());
 		Users users = buscar(usersId);
 		if(a != null) {
-			System.out.println("|Update| Friends Atualizado:"+friends.getId());
 			friends.setOption(a.getOption());
 			friends.setUsers(users);
 			friends.setUser_id(usersId);
+			System.out.println("|Update| Friends Atualizado:"+friends.getId());
 			return friendsRepository.save(friends);
 		}
-		System.out.println("|Create| Friends Cadastrados:"+friends.getId());
 		friends.setUsers(users);
 		friends.setUser_id(usersId);
+		System.out.println("|Create| Friends Cadastrados:"+friends.getId());
 		return friendsRepository.save(friends);
 	}
 	
