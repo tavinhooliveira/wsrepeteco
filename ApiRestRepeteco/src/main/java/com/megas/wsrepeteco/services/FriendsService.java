@@ -39,7 +39,7 @@ public class FriendsService {
 		}
 		
 		//Buscar User
-		public Friends buscar(Long id) {
+		public Friends buscar(String id) {
 			Friends friends = friendsRepository.findOne(id);
 			
 			if(friends == null) {
@@ -82,7 +82,7 @@ public class FriendsService {
 		}
 		
 		//Deletar
-		public void deletar(Long id) {
+		public void deletar(String id) {
 			try {
 				friendsRepository.delete(id);
 			} catch (EmptyResultDataAccessException e) {

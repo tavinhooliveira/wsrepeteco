@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class Friends {
 
 	@Id
-	private Long id;
+	private String id;
 	
 	@JsonInclude(Include.NON_NULL)
 	private String id_fb_friends;
@@ -84,17 +84,19 @@ public class Friends {
 		this.user_id = user_id;
 	}
 
+
+
 	/**
 	 * @return the id
 	 */
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

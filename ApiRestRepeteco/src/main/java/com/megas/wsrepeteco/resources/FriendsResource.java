@@ -57,14 +57,14 @@ public class FriendsResource {
 	
 	@CrossOrigin
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Friends> buscar(@PathVariable("id") Long id) {
+	public ResponseEntity<Friends> buscar(@PathVariable("id") String id) {
 		Friends friends = friendsService.buscar(id);
 		return ResponseEntity.status(HttpStatus.OK).body(friends);
 	}
 	
 	@CrossOrigin
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> atualizar(@RequestBody Friends friends, @PathVariable("id") Long id) {
+	public ResponseEntity<Void> atualizar(@RequestBody Friends friends, @PathVariable("id") String id) {
 		friends.setId(id);
 		friendsService.atualizar(friends);
 		
@@ -73,7 +73,7 @@ public class FriendsResource {
 	
 	@CrossOrigin
 	@RequestMapping(value = "opcao/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> opcao(@RequestBody Friends friends, @PathVariable("id") Long id) {
+	public ResponseEntity<Void> opcao(@RequestBody Friends friends, @PathVariable("id") String id) {
 		friends.setId(id);
 		friendsService.opcao(friends);
 		
@@ -81,7 +81,7 @@ public class FriendsResource {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
+	public ResponseEntity<Void> deletar(@PathVariable("id") String id) {
 		friendsService.deletar(id);
 
 		return ResponseEntity.noContent().build();

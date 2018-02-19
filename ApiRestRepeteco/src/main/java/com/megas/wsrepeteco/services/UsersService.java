@@ -83,6 +83,7 @@ public class UsersService {
 			friends.setOption(a.getOption());
 			friends.setUsers(users);
 			friends.setUser_id(usersId);
+			friends.setUpdateDataOption(a.getUpdateDataOption());
 			System.out.println("|Update| Friends Atualizado:"+friends.getId());
 			return friendsRepository.save(friends);
 		}
