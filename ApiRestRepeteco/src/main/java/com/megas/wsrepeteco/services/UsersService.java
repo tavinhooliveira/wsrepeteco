@@ -57,8 +57,7 @@ public class UsersService {
 	public Users buscar(Long id) {
 		Users users = usersRepository.findOne(id);		
 		if(users == null) {
-			System.out.println("O Usuario não existe.");
-			//TODO verificar se esse return causa bug
+			System.out.println("O Usuario não encontrado.");
 			return users;
 		}
 		return users;
@@ -97,6 +96,15 @@ public class UsersService {
 	public List<Friends> listarFriends(Long usersId) {
 		Users users = buscar(usersId);		
 		return users.getFriends();
+	}
+	
+	//Listar notificações do user corrente
+	public List<Friends> listFriendsNotification(Long usersId) {
+			Users users = buscar(usersId);
+			if(users.getFriends() == null){				
+				System.out.println("Nenhum amigo encontrado!");
+			}
+			return users.getFriends();
 	}
 	
 	//Deletar usuario
