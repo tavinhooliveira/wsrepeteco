@@ -2,6 +2,7 @@ package com.megas.wsrepeteco.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -36,7 +37,7 @@ public class UsersResource {
 
 	@CrossOrigin
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Users> buscar(@PathVariable("id") Long id) {
+	public ResponseEntity<Users> buscar(@PathVariable("id") String id) {
 		Users users = usersService.buscar(id);
 		return ResponseEntity.status(HttpStatus.OK).body(users);
 	}
@@ -44,8 +45,10 @@ public class UsersResource {
 	@CrossOrigin
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> salvar(@Valid @RequestBody Users users) {
+		System.out.println(users.getFriends().size());
+		users.getFriends().removeIf(u -> usersService.buscar(u.getId()) == null);
+		System.out.println(users.getFriends().size());
 		users = usersService.salvar(users);
-		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(users.getId()).toUri();
 		
@@ -64,14 +67,14 @@ public class UsersResource {
 	
 	@CrossOrigin
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> atualizar(@RequestBody Users users, @PathVariable("id") Long id) {
+	public ResponseEntity<Void> atualizar(@RequestBody Users users, @PathVariable("id") String id) {
 		users.setId(id);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@CrossOrigin
 	@RequestMapping(value = "/{id}/friends", method = RequestMethod.POST)
-	public ResponseEntity<Void> adicionarFriends(@PathVariable("id") Long usersId, @RequestBody List<Friends> friends) {		
+	public ResponseEntity<Void> adicionarFriends(@PathVariable("id") String usersId, @RequestBody List<Friends> friends) {
 			friends.forEach(f -> {
 			usersService.salvarFriends(usersId, f);
 		});		
@@ -81,7 +84,7 @@ public class UsersResource {
 	
 	@CrossOrigin
 	@RequestMapping(value = "/{id}/friends", method = RequestMethod.PUT)
-	public ResponseEntity<Void> atualizarFriends(@PathVariable("id") Long usersId, 
+	public ResponseEntity<Void> atualizarFriends(@PathVariable("id") String usersId,
 			@RequestBody List<Friends> friends) {		
 		friends.forEach(f -> {
 			usersService.salvarFriends(usersId, f);
@@ -93,9 +96,9 @@ public class UsersResource {
 	
 	@CrossOrigin
 	@RequestMapping(value = "/{id}/friends", method = RequestMethod.GET)
-	public ResponseEntity<List<Friends>> listarFriends(
-			@PathVariable("id")Long usersId) {
-		List<Friends> friends = usersService.listarFriends
+	public ResponseEntity<Set<Users>> listarFriends(
+			@PathVariable("id")String usersId) {
+        Set<Users> friends = usersService.listarFriends
 				(usersId);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(friends);
@@ -103,7 +106,7 @@ public class UsersResource {
 	
 	@CrossOrigin
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
+	public ResponseEntity<Void> deletar(@PathVariable("id") String id) {
 		usersService.deletar(id);
 
 		return ResponseEntity.noContent().build();
@@ -112,7 +115,7 @@ public class UsersResource {
 	
 	@CrossOrigin
 	@RequestMapping(value = "/{id}/preference", method = RequestMethod.PUT)
-	public ResponseEntity<Void> preference(@RequestBody Users users, @PathVariable("id") Long id) {
+	public ResponseEntity<Void> preference(@RequestBody Users users, @PathVariable("id") String id) {
 		users.setId(id);
 		usersService.preference(users);
 		
@@ -121,7 +124,7 @@ public class UsersResource {
 	
 	@CrossOrigin
 	@RequestMapping(value = "/{id}/preference", method = RequestMethod.GET)
-	public ResponseEntity<Users> buscarPreference(@PathVariable("id") Long id) {
+	public ResponseEntity<Users> buscarPreference(@PathVariable("id") String id) {
 		Users users = usersService.buscar(id);
 		return ResponseEntity.status(HttpStatus.OK).body(users);
 	}

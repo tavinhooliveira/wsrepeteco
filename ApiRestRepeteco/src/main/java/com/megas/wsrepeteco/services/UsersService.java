@@ -2,6 +2,7 @@ package com.megas.wsrepeteco.services;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -29,32 +30,32 @@ public class UsersService {
 		
 	//Salvar User
 	public Users salvar(Users users) {
-		if(users.getId() != null) {
-			Users a = usersRepository.findOne(users.getId());			
-			if(a != null) {
-				users.setUpdateData(new Date());
-				users.setCreateData(a.getCreateData());
-				users.setPreference(a.getPreference());
-				users.setFlagDisplayCount(a.isFlagDisplayCount());
-				users.setFlagDisplayHot(a.isFlagDisplayHot());
-				users.setFlagNotificationFriends(a.isFlagNotificationFriends());
-				users.setFlagNotificationMatch(a.isFlagNotificationMatch());
-				System.out.println("|Update| Usuario Atualizado:"+users.getId());
-				return usersRepository.save(users);
-			}
-		}
-		users.setCreateData(new Date());
-		users.setUpdateData(new Date());
-		users.setFlagDisplayCount(true);
-		users.setFlagDisplayHot(false);
-		users.setFlagNotificationFriends(true);
-		users.setFlagNotificationMatch(true);
-		System.out.println("|Create| Usuario Cadastrado:"+users.getId());
+//		if(users.getId() != null) {
+//			Users a = usersRepository.findOne(users.getId());
+//			if(a != null) {
+//				users.setUpdateData(new Date());
+//				users.setCreateData(a.getCreateData());
+//				users.setPreference(a.getPreference());
+//				users.setFlagDisplayCount(a.isFlagDisplayCount());
+//				users.setFlagDisplayHot(a.isFlagDisplayHot());
+//				users.setFlagNotificationFriends(a.isFlagNotificationFriends());
+//				users.setFlagNotificationMatch(a.isFlagNotificationMatch());
+//				System.out.println("|Update| Usuario Atualizado:"+users.getId());
+//				return usersRepository.save(users);
+//			}
+//		}
+//		users.setCreateData(new Date());
+//		users.setUpdateData(new Date());
+//		users.setFlagDisplayCount(true);
+//		users.setFlagDisplayHot(false);
+//		users.setFlagNotificationFriends(true);
+//		users.setFlagNotificationMatch(true);
+		System.out.println("|Create| Usuario Cadastrado:" + users.getId());
 		return usersRepository.save(users);
 	}
 	
 	//Buscar User
-	public Users buscar(Long id) {
+	public Users buscar(String id) {
 		Users users = usersRepository.findOne(id);		
 		if(users == null) {
 			System.out.println("O Usuario não encontrado.");
@@ -75,7 +76,7 @@ public class UsersService {
 	}
 	
 	//Salvar Amigos
-	public Friends salvarFriends(Long usersId, Friends friends) {
+	public Friends salvarFriends(String usersId, Friends friends) {
 		Friends a = friendsRepository.findOne(friends.getId());
 		Users users = buscar(usersId);
 		if(a != null) {
@@ -93,13 +94,13 @@ public class UsersService {
 	}
 	
 	//Listar amigos do user corrente
-	public List<Friends> listarFriends(Long usersId) {
+	public Set<Users> listarFriends(String usersId) {
 		Users users = buscar(usersId);		
 		return users.getFriends();
 	}
 	
 	//Listar notificações do user corrente
-	public List<Friends> listFriendsNotification(Long usersId) {
+	public Set<Users> listFriendsNotification(String usersId) {
 			Users users = buscar(usersId);
 			if(users.getFriends() == null){				
 				System.out.println("Nenhum amigo encontrado!");
@@ -108,7 +109,7 @@ public class UsersService {
 	}
 	
 	//Deletar usuario
-	public void deletar(Long id) {
+	public void deletar(String id) {
 		try {
 			usersRepository.delete(id);
 		} catch (EmptyResultDataAccessException e) {
@@ -121,8 +122,8 @@ public class UsersService {
 		verificarExistencia(users);
 		Users a = usersRepository.findOne(users.getId());
 		if(a != null) {
-			System.out.println("|Update| Preferencias do Usuario Atualizadas |UserId: "+a.getId_fb_users());
-			users.setId_fb_users(a.getId_fb_users());
+//			System.out.println("|Update| Preferencias do Usuario Atualizadas |UserId: "+a.getId_fb_users());
+//			users.setId_fb_users(a.getId_fb_users());
 			users.setName(a.getName());
 			users.setImagem(a.getImagem());
 			users.setLink(a.getLink());

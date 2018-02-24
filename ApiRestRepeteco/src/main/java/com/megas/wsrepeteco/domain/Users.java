@@ -1,23 +1,22 @@
 package com.megas.wsrepeteco.domain;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import org.hibernate.internal.util.compare.EqualsHelper;
 
 @Entity
 public class Users {
 	
 	@Id
-	private Long id;
+    @Column(name="id", updatable = false, nullable = false)
+	private String id;
 	
-	private String id_fb_users;	
+//	private String id_fb_users;
 	
 	private String name;
 	
@@ -57,15 +56,21 @@ public class Users {
 	private Date updateData;
 		
 	@JsonInclude(Include.NON_EMPTY)
-	@OneToMany(mappedBy = "users")
-	private List<Friends> friends;
+//	@OneToMany(mappedBy = "id_fb_users")
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "friend_relation",
+			joinColumns = @JoinColumn(name = "user_id", updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "friend_id", updatable = false)
+	)
+	private Set<Users> friends = new HashSet<Users>();
+//	private List<Friends> friends;
 		
 	public Users() {}
 	
 	/**
 	 * @return the id
 	 */
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
@@ -73,7 +78,7 @@ public class Users {
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -81,17 +86,17 @@ public class Users {
 	/**
 	 * @return the id_fb_users
 	 */
-	public String getId_fb_users() {
-		return id_fb_users;
-	}
+//	public String getId_fb_users() {
+//		return id_fb_users;
+//	}
 
 
 	/**
 	 * @param id_fb_users the id_fb_users to set
 	 */
-	public void setId_fb_users(String id_fb_users) {
-		this.id_fb_users = id_fb_users;
-	}
+//	public void setId_fb_users(String id_fb_users) {
+//		this.id_fb_users = id_fb_users;
+//	}
 
 
 	/**
@@ -241,17 +246,17 @@ public class Users {
 	/**
 	 * @return the friends
 	 */
-	public List<Friends> getFriends() {
-		return friends;
-	}
+//	public List<Friends> getFriends() {
+//		return friends;
+//	}
 
 
 	/**
 	 * @param friends the friends to set
 	 */
-	public void setFriends(List<Friends> friends) {
-		this.friends = friends;
-	}
+//	public void setFriends(List<Friends> friends) {
+//		this.friends = friends;
+//	}
 
 	/**
 	 * @return the friendsTotalApp
@@ -328,4 +333,25 @@ public class Users {
 	}
 
 
+    public Set<Users> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(Set<Users> friends) {
+        this.friends = friends;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Users)) return false;
+        Users users = (Users) o;
+        return Objects.equals(id, users.id);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id);
+    }
 }

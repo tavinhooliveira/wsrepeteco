@@ -1,7 +1,9 @@
 package com.megas.wsrepeteco.resources;
 
 import java.util.List;
+import java.util.Set;
 
+import com.megas.wsrepeteco.domain.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +29,8 @@ public class NotificationResource {
 	
 	@CrossOrigin
 	@RequestMapping(value = "/{id}/friends", method = RequestMethod.GET)
-	public ResponseEntity<List<Friends>> listFriendsNotification(@PathVariable("id")Long usersId) {
-		List<Friends> friends =  usersService.listFriendsNotification(usersId);
+	public ResponseEntity<Set<Users>> listFriendsNotification(@PathVariable("id")String usersId) {
+		Set<Users> friends =  usersService.listFriendsNotification(usersId);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(friends);
 	}
