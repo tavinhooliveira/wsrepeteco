@@ -104,6 +104,7 @@ public class UsersService {
 			if(users.getFriends() == null){				
 				System.out.println("Nenhum amigo encontrado!");
 			}
+						
 			return users.getFriends();
 	}
 	
