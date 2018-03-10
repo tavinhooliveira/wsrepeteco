@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.megas.wsrepeteco.domain.Friends;
 import com.megas.wsrepeteco.services.FriendsService;
-import com.megas.wsrepeteco.services.UsersService;
 
 
 @RestController
@@ -22,16 +21,16 @@ public class NotificationResource {
 	
 
 	
-	@Autowired
-	private  UsersService usersService;
+//	@Autowired
+//	private  UsersService usersService;
 	
 	@Autowired
 	private  FriendsService friendsService;
 		
 	@CrossOrigin
 	@RequestMapping(value = "/{id}/friends", method = RequestMethod.GET)
-	public ResponseEntity<List<Friends>> listFriendsNotification(@PathVariable("id")Long usersId) {
-		List<Friends> friends =  usersService.listFriendsNotification(usersId);
+	public ResponseEntity<Friends> listFriendsNotification(@PathVariable("id_fb_friends")String id_fb_friends) {
+		Friends friends =  friendsService.buscar(id_fb_friends);
 				
 		return ResponseEntity.status(HttpStatus.OK).body(friends);
 	}

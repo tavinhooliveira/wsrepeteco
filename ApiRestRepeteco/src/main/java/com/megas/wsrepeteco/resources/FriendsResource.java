@@ -63,6 +63,15 @@ public class FriendsResource {
 	}
 	
 	@CrossOrigin
+	@RequestMapping(value = "/likedMe/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Friends> buscarLikedMe(@PathVariable("id") String id) {
+		Friends friends = friendsService.buscar(id);
+		return ResponseEntity.status(HttpStatus.OK).body(friends);
+	}
+	
+	
+	
+	@CrossOrigin
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> atualizar(@RequestBody Friends friends, @PathVariable("id") String id) {
 		friends.setId(id);

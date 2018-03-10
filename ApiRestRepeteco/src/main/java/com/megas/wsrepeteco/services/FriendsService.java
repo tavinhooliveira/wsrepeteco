@@ -29,7 +29,8 @@ public class FriendsService {
 		
 		return friends;
 	}
-
+	
+	
 	// Salvar Friends
 	public Friends salvar(Friends friends) {
 		if (friends.getId() != null) {
@@ -45,7 +46,7 @@ public class FriendsService {
 		return friendsRepository.save(friends);
 	}
 
-	// Buscar User
+	// Buscar Friends
 	public Friends buscar(String id) {
 		Friends friends = friendsRepository.findOne(id);
 
