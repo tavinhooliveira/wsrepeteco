@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.megas.wsrepeteco.domain.Friends;
+import com.megas.wsrepeteco.domain.Matchs;
 import com.megas.wsrepeteco.domain.Users;
 import com.megas.wsrepeteco.services.UsersService;
 
@@ -69,6 +70,7 @@ public class UsersResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+	//POST Inserir lista de Friends no User.
 	@CrossOrigin
 	@RequestMapping(value = "/{id}/friends", method = RequestMethod.POST)
 	public ResponseEntity<Void> adicionarFriends(@PathVariable("id") Long usersId, @RequestBody List<Friends> friends) {		
@@ -91,6 +93,39 @@ public class UsersResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	//POST Inserir lista de Matchs no User.
+		@CrossOrigin
+		@RequestMapping(value = "/{id}/matchs", method = RequestMethod.POST)
+		public ResponseEntity<Void> adicionarMatchs(@PathVariable("id") Long usersId, @RequestBody List<Matchs> matchs) {		
+			matchs.forEach(f -> {
+				usersService.salvarMatchs(usersId, f);
+			});		
+			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();		
+			return ResponseEntity.created(uri).build();
+		}
+		
+		@CrossOrigin
+		@RequestMapping(value = "/{id}/matchs", method = RequestMethod.PUT)
+		public ResponseEntity<Void> atualizarMatchs(@PathVariable("id") Long usersId, 
+				@RequestBody List<Matchs> matchs) {		
+			matchs.forEach(f -> {
+				usersService.salvarMatchsUpdate(usersId, f);
+			});		
+			
+			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
+			return ResponseEntity.created(uri).build();
+		}
+		
+		@CrossOrigin
+		@RequestMapping(value = "/{id}/matchs", method = RequestMethod.GET)
+		public ResponseEntity<List<Matchs>> listarMatchs(
+				@PathVariable("id")Long usersId) {
+			List<Matchs> matchs = usersService.listarMatchs
+					(usersId);
+			
+			return ResponseEntity.status(HttpStatus.OK).body(matchs);
+		}
+	
 	@CrossOrigin
 	@RequestMapping(value = "/{id}/friends", method = RequestMethod.GET)
 	public ResponseEntity<List<Friends>> listarFriends(
@@ -100,7 +135,7 @@ public class UsersResource {
 		
 		return ResponseEntity.status(HttpStatus.OK).body(friends);
 	}
-	
+		
 	@CrossOrigin
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {

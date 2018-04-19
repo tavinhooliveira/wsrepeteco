@@ -88,7 +88,7 @@ public class FriendsResource {
 		
 		return ResponseEntity.noContent().build();
 	}
-	
+		
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deletar(@PathVariable("id") String id) {
 		friendsService.deletar(id);

@@ -8,8 +8,10 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.megas.wsrepeteco.domain.Friends;
+import com.megas.wsrepeteco.domain.Matchs;
 import com.megas.wsrepeteco.domain.Users;
 import com.megas.wsrepeteco.repository.FriendsRepository;
+import com.megas.wsrepeteco.repository.MatchsRepository;
 import com.megas.wsrepeteco.repository.UsersRepository;
 import com.megas.wsrepeteco.services.exceptions.OptionNaoEncontradoException;
 
@@ -21,6 +23,9 @@ public class UsersService {
 	
 	@Autowired
 	private FriendsRepository friendsRepository;
+	
+	@Autowired
+	private MatchsRepository matchsRepository;
 	
 	//Listar Todos
 	public List<Users> listar() {		
@@ -88,8 +93,43 @@ public class UsersService {
 		}
 		friends.setUsers(users);
 		friends.setUser_id(usersId);
+		friends.setUpdateDataOption(new Date());
 		System.out.println("|Create| Friends Cadastrados:"+friends.getId());
 		return friendsRepository.save(friends);
+	}
+	
+	//Salvar Matchs
+	public Matchs salvarMatchs(Long usersId, Matchs matchs) {
+		Matchs a = matchsRepository.findOne(matchs.getId());
+		Users users = buscar(usersId);
+		if(a != null) {
+			matchs.setOption(a.getOption());
+			matchs.setUsers(users);
+			matchs.setUser_id(usersId);
+			matchs.setDataMatch(a.getDataMatch());
+			System.out.println("|Update| Matchs Atualizado:"+matchs.getId());
+			return matchsRepository.save(matchs);
+		}
+		matchs.setUsers(users);
+		matchs.setUser_id(usersId);
+		matchs.setDataMatch(new Date());
+		System.out.println("|Create| Matchs Cadastrados:"+matchs.getId());
+		return matchsRepository.save(matchs);
+	}
+	
+	//Salvar Matchs
+	public Matchs salvarMatchsUpdate(Long usersId, Matchs matchs) {
+		Users users = buscar(usersId);
+		matchs.setUsers(users);
+		matchs.setDataMatch(new Date());
+		System.out.println("|Create| Matchs Cadastrados:");
+		return matchsRepository.save(matchs);
+	}
+	
+	//Listar Matchs do user corrente
+	public List<Matchs> listarMatchs(Long usersId) {
+		Users users = buscar(usersId);		
+		return users.getMatchs();
 	}
 	
 	//Listar amigos do user corrente

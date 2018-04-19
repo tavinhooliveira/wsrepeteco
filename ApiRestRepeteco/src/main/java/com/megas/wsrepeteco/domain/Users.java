@@ -59,6 +59,10 @@ public class Users {
 	@JsonInclude(Include.NON_EMPTY)
 	@OneToMany(mappedBy = "users")
 	private List<Friends> friends;
+	
+	@JsonInclude(Include.NON_EMPTY)
+	@OneToMany(mappedBy = "users")
+	private List<Matchs> matchs;
 		
 	public Users() {}
 	
@@ -251,6 +255,15 @@ public class Users {
 	 */
 	public void setFriends(List<Friends> friends) {
 		this.friends = friends;
+	}
+	
+	
+	public List<Matchs> getMatchs() {
+		return matchs;
+	}
+
+	public void setMatchs(List<Matchs> matchs) {
+		this.matchs = matchs;
 	}
 
 	/**
