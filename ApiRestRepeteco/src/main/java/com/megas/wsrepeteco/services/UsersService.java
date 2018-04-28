@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.megas.wsrepeteco.domain.Friends;
 import com.megas.wsrepeteco.domain.Matchs;
+import com.megas.wsrepeteco.domain.Notification;
 import com.megas.wsrepeteco.domain.Users;
 import com.megas.wsrepeteco.repository.FriendsRepository;
 import com.megas.wsrepeteco.repository.MatchsRepository;
+import com.megas.wsrepeteco.repository.NotificationRepository;
 import com.megas.wsrepeteco.repository.UsersRepository;
 import com.megas.wsrepeteco.services.exceptions.OptionNaoEncontradoException;
 
@@ -26,6 +28,9 @@ public class UsersService {
 	
 	@Autowired
 	private MatchsRepository matchsRepository;
+	
+	@Autowired
+	private NotificationRepository notificationRepository;
 	
 	//Listar Todos
 	public List<Users> listar() {		
@@ -121,15 +126,31 @@ public class UsersService {
 	public Matchs salvarMatchsUpdate(Long usersId, Matchs matchs) {
 		Users users = buscar(usersId);
 		matchs.setUsers(users);
+		matchs.setUser_id(usersId);
 		matchs.setDataMatch(new Date());
-		System.out.println("|Create| Matchs Cadastrados:");
+		System.out.println("|Update| Matchs:");
 		return matchsRepository.save(matchs);
+	}
+	
+	//Salvar Notification
+	public Notification salvarNotification(Long usersId, Notification notification) {
+		Users users = buscar(usersId);
+		notification.setUsers(users);
+		notification.setDateNotify(new Date());
+		System.out.println("|Notification:");
+		return notificationRepository.save(notification);
 	}
 	
 	//Listar Matchs do user corrente
 	public List<Matchs> listarMatchs(Long usersId) {
 		Users users = buscar(usersId);		
 		return users.getMatchs();
+	}
+	
+	//Listar Notification do user corrente
+	public List<Notification> listarNotification(Long usersId) {
+		Users users = buscar(usersId);		
+		return users.getNotification();
 	}
 	
 	//Listar amigos do user corrente

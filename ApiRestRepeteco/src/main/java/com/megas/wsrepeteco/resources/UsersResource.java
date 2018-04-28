@@ -18,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.megas.wsrepeteco.domain.Friends;
 import com.megas.wsrepeteco.domain.Matchs;
+import com.megas.wsrepeteco.domain.Notification;
 import com.megas.wsrepeteco.domain.Users;
 import com.megas.wsrepeteco.services.UsersService;
 
@@ -116,6 +117,7 @@ public class UsersResource {
 			return ResponseEntity.created(uri).build();
 		}
 		
+		
 		@CrossOrigin
 		@RequestMapping(value = "/{id}/matchs", method = RequestMethod.GET)
 		public ResponseEntity<List<Matchs>> listarMatchs(
@@ -126,6 +128,27 @@ public class UsersResource {
 			return ResponseEntity.status(HttpStatus.OK).body(matchs);
 		}
 	
+		@CrossOrigin
+		@RequestMapping(value = "/{id}/notification", method = RequestMethod.PUT)
+		public ResponseEntity<Void> updateNotification(@PathVariable("id") Long usersId, 
+				@RequestBody List<Notification> notification) {		
+			notification.forEach(f -> {
+				usersService.salvarNotification(usersId, f);
+			});		
+			
+			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
+			return ResponseEntity.created(uri).build();
+		}
+		
+		@CrossOrigin
+		@RequestMapping(value = "/{id}/notification", method = RequestMethod.GET)
+		public ResponseEntity<List<Notification>> listarNotification(
+				@PathVariable("id")Long usersId) {
+			List<Notification> notification = usersService.listarNotification(usersId);
+			
+			return ResponseEntity.status(HttpStatus.OK).body(notification);
+		}
+		
 	@CrossOrigin
 	@RequestMapping(value = "/{id}/friends", method = RequestMethod.GET)
 	public ResponseEntity<List<Friends>> listarFriends(

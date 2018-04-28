@@ -63,6 +63,10 @@ public class Users {
 	@JsonInclude(Include.NON_EMPTY)
 	@OneToMany(mappedBy = "users")
 	private List<Matchs> matchs;
+	
+	@JsonInclude(Include.NON_EMPTY)
+	@OneToMany(mappedBy = "users")
+	private List<Notification> notification;
 		
 	public Users() {}
 	
@@ -339,6 +343,16 @@ public class Users {
 	public void setFlagNotificationFriends(boolean flagNotificationFriends) {
 		this.flagNotificationFriends = flagNotificationFriends;
 	}
+
+	public List<Notification> getNotification() {
+		return notification;
+	}
+
+	public void setNotification(List<Notification> notification) {
+		this.notification = notification;
+	}
+	
+	
 
 
 }
