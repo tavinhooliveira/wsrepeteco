@@ -16,6 +16,7 @@ import com.megas.wsrepeteco.repository.MatchsRepository;
 import com.megas.wsrepeteco.repository.NotificationRepository;
 import com.megas.wsrepeteco.repository.UsersRepository;
 import com.megas.wsrepeteco.services.exceptions.OptionNaoEncontradoException;
+import com.megas.wsrepeteco.services.exceptions.UsersNaoEncontradoException;
 
 @Service
 public class UsersService {
@@ -68,7 +69,7 @@ public class UsersService {
 		Users users = usersRepository.findOne(id);		
 		if(users == null) {
 			System.out.println("O Usuario não encontrado.");
-			return users;
+			 throw new UsersNaoEncontradoException("O usuario não pôde ser encontrado.");
 		}
 		return users;
 	}
@@ -140,6 +141,7 @@ public class UsersService {
 		System.out.println("|Notification:");
 		return notificationRepository.save(notification);
 	}
+	
 	
 	//Listar Matchs do user corrente
 	public List<Matchs> listarMatchs(Long usersId) {

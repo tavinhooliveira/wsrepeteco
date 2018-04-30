@@ -141,6 +141,16 @@ public class UsersResource {
 		}
 		
 		@CrossOrigin
+		@RequestMapping(value = "/{id}/notification", method = RequestMethod.POST)
+		public ResponseEntity<Void> postNotification(@PathVariable("id") Long usersId, 
+				@RequestBody Notification notification) {	
+				usersService.salvarNotification(usersId, notification);		
+			
+			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
+			return ResponseEntity.created(uri).build();
+		};
+		
+		@CrossOrigin
 		@RequestMapping(value = "/{id}/notification", method = RequestMethod.GET)
 		public ResponseEntity<List<Notification>> listarNotification(
 				@PathVariable("id")Long usersId) {
