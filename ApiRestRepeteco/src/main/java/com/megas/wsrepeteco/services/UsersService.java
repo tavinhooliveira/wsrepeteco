@@ -113,6 +113,7 @@ public class UsersService {
 			matchs.setUsers(users);
 			matchs.setUser_id(usersId);
 			matchs.setDataMatch(a.getDataMatch());
+			matchs.setRead(a.getRead());
 			System.out.println("|Update| Matchs Atualizado:"+matchs.getId());
 			return matchsRepository.save(matchs);
 		}
@@ -125,7 +126,17 @@ public class UsersService {
 	
 	//Salvar Matchs
 	public Matchs salvarMatchsUpdate(Long usersId, Matchs matchs) {
+		Matchs a = matchsRepository.findOne(matchs.getId());
 		Users users = buscar(usersId);
+		if(a != null) {
+			matchs.setOption(a.getOption());
+			matchs.setUsers(users);
+			matchs.setUser_id(usersId);
+			matchs.setDataMatch(a.getDataMatch());
+			matchs.setRead(a.getRead());
+			System.out.println("|Update| Matchs Atualizado:"+matchs.getId());
+			return matchsRepository.save(matchs);
+		}
 		matchs.setUsers(users);
 		matchs.setUser_id(usersId);
 		matchs.setDataMatch(new Date());

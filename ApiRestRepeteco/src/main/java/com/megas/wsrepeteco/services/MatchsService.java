@@ -1,11 +1,13 @@
 package com.megas.wsrepeteco.services;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.megas.wsrepeteco.domain.Friends;
 import com.megas.wsrepeteco.domain.Matchs;
 import com.megas.wsrepeteco.repository.MatchsRepository;
 import com.megas.wsrepeteco.services.exceptions.OptionNaoEncontradoException;
@@ -75,6 +77,25 @@ public class MatchsService {
 		} catch (EmptyResultDataAccessException e) {
 			throw new OptionNaoEncontradoException("O match não pode ser Desfeito.");
 		}
+	}
+	
+	// Status Read
+	public void read(Matchs matchs) {
+		verificarExistencia(matchs);
+		Matchs a = matchsRepository.findOne(matchs.getId());
+		if (a != null) {
+			matchs.setId(a.getId());
+			matchs.setId_fb_friends(a.getId_fb_friends());
+			matchs.setName(a.getName());
+			matchs.setImagem(a.getImagem());
+			matchs.setLink(a.getLink());
+			matchs.setOption(a.getOption());
+			matchs.setDataMatch(a.getDataMatch());
+			matchs.setUser_id(a.getUser_id());
+			matchs.setUsers(a.getUsers());
+			System.out.println("|Update|ReadStatus Matchs |UserId: " + a.getId_fb_friends() + " Matchs_ID: " + matchs.getId());			
+		}
+		matchsRepository.save(matchs);
 	}
 
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.megas.wsrepeteco.domain.Friends;
 import com.megas.wsrepeteco.domain.Matchs;
 import com.megas.wsrepeteco.services.MatchsService;
 
@@ -63,6 +64,13 @@ public class MatchsResource {
 		return ResponseEntity.status(HttpStatus.OK).body(matchs);
 	}
 	
+	@CrossOrigin
+	@RequestMapping(value = "readStatus/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> opcao(@RequestBody Matchs matchs, @PathVariable("id") String id) {
+		matchsService.read(matchs);
+		
+		return ResponseEntity.noContent().build();
+	}
 	
 	@CrossOrigin
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)

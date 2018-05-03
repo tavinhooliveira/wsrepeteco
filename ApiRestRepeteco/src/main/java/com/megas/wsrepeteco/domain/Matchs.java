@@ -26,6 +26,9 @@ public class Matchs {
 	private String name;
 	
 	@JsonInclude(Include.NON_NULL)
+	private String read;
+	
+	@JsonInclude(Include.NON_NULL)
 	private String imagem;
 	
 	@JsonInclude(Include.NON_NULL)
@@ -116,6 +119,15 @@ public class Matchs {
 	public void setUser_id(Long user_id) {
 		this.user_id = user_id;
 	}
+
+	public String getRead() {
+		return read;
+	}
+
+	public void setRead(String read) {
+		this.read = read;
+	}
+	
 	
 	
 				
