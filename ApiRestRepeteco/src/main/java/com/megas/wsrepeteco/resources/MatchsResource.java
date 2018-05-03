@@ -67,6 +67,7 @@ public class MatchsResource {
 	@CrossOrigin
 	@RequestMapping(value = "readStatus/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> opcao(@RequestBody Matchs matchs, @PathVariable("id") String id) {
+		matchs.setId(id);
 		matchsService.read(matchs);
 		
 		return ResponseEntity.noContent().build();
