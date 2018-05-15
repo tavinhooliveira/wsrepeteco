@@ -212,4 +212,23 @@ public class UsersService {
 		usersRepository.save(users);
 	}
 	
+	//[Config]Set Preferencia Sexual
+		public void updatePerfil(Users users) {			
+			verificarExistencia(users);
+			Users a = usersRepository.findOne(users.getId());
+			if(a != null) {
+				System.out.println("|Update| User perfil |UserId: "+a.getId_fb_users());
+				users.setId_fb_users(a.getId_fb_users());
+				users.setName(a.getName());
+				users.setImagem(a.getImagem());
+				users.setLink(a.getLink());
+				users.setGender(a.getGender());
+				users.setNationality(a.getNationality());
+				users.setFriendsTotalFb(a.getFriendsTotalFb());
+				users.setFriendsTotalApp(a.getFriendsTotalApp());
+				usersRepository.save(users);
+			}
+			usersRepository.save(users);
+		}
+	
 }

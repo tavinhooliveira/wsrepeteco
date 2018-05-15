@@ -33,6 +33,8 @@ public class Users {
 	
 	private String preference;
 	
+	private String numberWhats;
+		
 	private String nationality;
 		
 	private Integer friendsTotalFb;
@@ -350,6 +352,14 @@ public class Users {
 
 	public void setNotification(List<Notification> notification) {
 		this.notification = notification;
+	}
+
+	public String getNumberWhats() {
+		return numberWhats;
+	}
+
+	public void setNumberWhats(String numberWhats) {
+		this.numberWhats = numberWhats;
 	}
 	
 	

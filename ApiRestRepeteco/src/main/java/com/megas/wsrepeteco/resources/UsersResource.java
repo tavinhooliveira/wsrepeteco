@@ -188,6 +188,15 @@ public class UsersResource {
 	}
 	
 	@CrossOrigin
+	@RequestMapping(value = "/{id}/perfilupdate", method = RequestMethod.PUT)
+	public ResponseEntity<Void> updatePerfil(@RequestBody Users users, @PathVariable("id") Long id) {
+		users.setId(id);
+		usersService.updatePerfil(users);
+		
+		return ResponseEntity.noContent().build();
+	}
+	
+	@CrossOrigin
 	@RequestMapping(value = "/{id}/preference", method = RequestMethod.GET)
 	public ResponseEntity<Users> buscarPreference(@PathVariable("id") Long id) {
 		Users users = usersService.buscar(id);
