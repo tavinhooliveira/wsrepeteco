@@ -46,6 +46,7 @@ public class UsersService {
 				users.setUpdateData(new Date());
 				users.setCreateData(a.getCreateData());
 				users.setPreference(a.getPreference());
+				users.setNumberWhats(a.getNumberWhats());
 				users.setFlagDisplayCount(a.isFlagDisplayCount());
 				users.setFlagDisplayHot(a.isFlagDisplayHot());
 				users.setFlagNotificationFriends(a.isFlagNotificationFriends());
