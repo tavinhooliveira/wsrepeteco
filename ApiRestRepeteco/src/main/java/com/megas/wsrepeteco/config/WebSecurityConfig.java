@@ -12,8 +12,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("algaworks")
-		.password("s3nh4").roles("USER");
+		auth.inMemoryAuthentication().withUser("repetecoApi")
+		.password("megas*s3nh4").roles("USER");
 	}
 	
 	protected void configure(HttpSecurity http) throws Exception {
