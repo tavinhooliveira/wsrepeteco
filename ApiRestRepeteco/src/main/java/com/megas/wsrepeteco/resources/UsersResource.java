@@ -43,8 +43,8 @@ public class UsersResource {
 	public ResponseEntity<Users> buscar(@PathVariable("id") Long id) {
 		Users users = usersService.buscar(id);
 		
-		CacheControl cacheControl = CacheControl.maxAge(10, TimeUnit.SECONDS);
-		return ResponseEntity.status(HttpStatus.OK).cacheControl(cacheControl).body(users);
+		//CacheControl cacheControl = CacheControl.maxAge(10, TimeUnit.SECONDS);
+		return ResponseEntity.status(HttpStatus.OK).body(users);
 	}
 	
 	@CrossOrigin
